@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+<link rel="shortcut icon" href="<?= $this->url->get('assets/favicon.ico') ?>" type="image/x-icon">
+<link rel="icon" href="<?= $this->url->get('assets/favicon.ico') ?>" type="image/x-icon">
+
+<link href="<?= $this->url->get('css/styles.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/bootstrap.min.css') ?>" rel="stylesheet">
+<link id="css-main" href="<?= $this->url->get('css/codebase.min.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/fontawesome.min.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/bootstrap-select.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/tagsinput.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/Chart.css') ?>" rel="stylesheet">
+
+<script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/popper.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/bootstrap-select.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/tagsinput.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/javascript.js') ?>"></script>
+	<title>Halaman Login</title>
+</head>
+<body>
+	<!-- Header Content -->
+        <!-- Nav tabs -->
+        <nav class="navbar navbar-dark navbar-expand-lg fixed-top" style="font-size: 16px; background-color: #6878a0">
+            <?php if ($this->session->get('auth') && $this->session->get('auth')['role'] == 1) { ?>
+                <a class="nav-link text-light" href="<?= $this->url->get() ?>">Home</a>
+            <?php } elseif ($this->session->get('auth') && $this->session->get('auth')['role'] == 0) { ?>
+                <a class="nav-link text-light" href="<?= $this->url->get('dashboard/user') ?>">Home</a>
+            <?php } else { ?>
+                <a class="nav-link text-light" href="<?= $this->url->get('home') ?>">Home</a>
+            <?php } ?>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                <?php if ($this->session->get('auth')) { ?>
+                    <?php if ($this->session->get('auth')['role'] == 1) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="<?= $this->url->get('expense') ?>">Pengeluaran</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="<?= $this->url->get('goods') ?>">Barang</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="<?= $this->url->get('service') ?>">Service Laundry</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="<?= $this->url->get('order') ?>">Pesanan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="<?= $this->url->get('pickup_delivery') ?>">Jasa Antar-Jemput</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="<?= $this->url->get('payment') ?>">Pembayaran</a>
+                        </li>
+                    <?php } else { ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pesanan</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="<?= $this->url->get('order/users') ?>">Tambah Pesanan</a>
+                                <a class="dropdown-item" href="<?= $this->url->get('/listorder') ?>">Daftar Pesanan</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="<?= $this->url->get('item') ?>">Item</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="<?= $this->url->get('history') ?>">Riwayat</a>
+                        </li>
+                    <?php } ?>
+                <?php } ?>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <?php if ($this->session->get('auth')) { ?>
+                        <?php $val = 'profile?id=' . $this->session->get('auth')['id']; ?>
+                        <a class="nav-link text-light" href="<?= $this->url->get($val) ?>">Selamat Datang, <span class="text-info"><?= $this->session->get('auth')['username'] ?></span></a>
+                        <a class="nav-link btn btn-danger" href="<?= $this->url->get('logout') ?>">Log Out</a>
+                    <?php } else { ?>
+                        <a class="nav-link text-light" href="<?= $this->url->get('login') ?>">Log In</a>
+                    <?php } ?>
+                </ul>
+            </div>
+        </nav>
+<!-- END Header Content -->
+	
+
+<?php if ($this->cookies->has('username')) { ?>
+	
+<?php } ?>
+
+<div id="page-container" class="sidebar-inverse side-scroll page-header-fixed main-content-boxed">
+	<div class="row" style="margin-top:5vh">
+		<?php if ($flash != null) { ?>
+			<div id="hides" class="cards notif-block" style="position:absolute; margin-top: 2vh; height:5vh; width:100%"><?= $this->flash->output() ?></div>
+        <?php } ?>
+		<?php if ($msg_error != null) { ?>
+			<?php foreach ($msg_error as $i) { ?>
+				<div id="hides" class="cards notif-block" class="alert alert-danger" style="position:absolute; margin-top: 2vh; height:5vh; width:100%"><?= $i ?></div>
+			<?php } ?>
+		<?php } ?>
+	</div>
+	<div class="row-centered">
+		<div class="card login-card" style="margin-top:25vh">
+			<img class="avatar" src="<?= $this->url->get('assets/logo.png') ?>">
+			<h1 class="text-center text-secondary">Log In <span class="text-info">Akun</span></h1>
+			<div class="col-md-6" style="margin-left:12vw;">
+				<?= $form->startForm() ?>
+					<div class="form-group">
+						<?= $form->render('username') ?>
+					</div>
+					<div class="form-group">
+						<?= $form->render('password') ?>
+					</div>
+					<div class="form-group">
+					<?= $form->render('Login') ?>
+					</div style="margin-left:50px;">
+						<?= $form->render('remember') ?>
+						<?= $form->getLabel('remember') ?>
+					</div>
+				<?= $form->endForm() ?>
+				<div class="row" style="margin-left:13vw">
+					<p>Belum memiliki akun? </p>
+					<a href="#registerModal" class="btn btn-success" data-toggle="modal" style="margin-left:10px">Register</a>
+				</div>
+			</div>
+		</div>
+		<div class="floats">
+			<img src="<?= $this->url->get('assets/login.png') ?>" style="height:80vh">
+		</div>
+	</div>
+</div>
+
+<div id="registerModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">						
+                <h4 class="modal-title text-center">Register</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" style="height:70vh; overflow-y:auto;">
+                <form class="UserForm" action="store/user" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label><b><?= $forms->getLabel('name') ?></b></label>
+                        <?= $forms->render('name') ?>
+                    </div>
+                    <div class="form-group">
+                        <label><b><?= $forms->getLabel('address') ?></b></label>
+                        <?= $forms->render('address') ?>
+                    </div>
+                    <p><b>Jenis Kelamin</b></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <?= $forms->render('P') ?>
+                                <label><?= $forms->getLabel('P') ?></label> 
+                            </div>	
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <?= $forms->render('L') ?>
+                                <label><?= $forms->getLabel('L') ?></label>
+                            </div>	
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><b><?= $forms->getLabel('email') ?></b></label>
+                        <?= $forms->render('email') ?>
+                    </div>
+                    <div class="form-group">
+                        <label><b><?= $forms->getLabel('phone') ?></b></label>
+                        <?= $forms->render('phone') ?>
+                    </div>
+                    <div class="form-group">
+                        <label><b><?= $forms->getLabel('username') ?></b></label>
+                        <?= $forms->render('username') ?>
+                    </div>
+                    <div class="form-group">
+                        <label><b><?= $forms->getLabel('password') ?></b></label>
+                        <?= $forms->render('password') ?>
+                    </div>
+                    <div class="form-group">
+                        <label><b><?= $forms->getLabel('profile_img') ?></b></label>
+                        <?= $forms->render('profile_img') ?>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                    <div class="form-group">
+                        <div class="text-center">
+                            <?= $forms->render('Simpan') ?>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>					
+        </div>
+    </div>
+</div>
+
+
+	<div class="clearfix bottom-content">
+		<div class="row" style="position: relative; margin-top:10vh; width: 100%; color: white"> 
+			<div class="col-md-8">
+				<p style="padding-left: 2vw;">© Copy Right by Bella Septina. Created with<span>❤</span></p>
+			</div>
+			<div class="col-md-4">
+				<div class="row">
+				<div class="col-sm">
+                	<a type="button" class="text-light" href=""><i class="fa fa-globe" style="font-size:24px"></i>service.laundry.com</a><br>
+                </div>
+				<div class="col-sm">
+					<a type="button" class="text-light" href=""><i class="fa fa-facebook-square" style="font-size:24px"></i> Service Laundry Organizer</a><br>
+				</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</body>
+</html>
