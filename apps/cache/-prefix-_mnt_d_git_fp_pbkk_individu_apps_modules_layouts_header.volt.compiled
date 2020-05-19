@@ -11,6 +11,8 @@
 <link href="<?= $this->url->get('css/bootstrap-select.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/tagsinput.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/Chart.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/navbarstyle.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/footer.css') ?>" rel="stylesheet">
 
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>

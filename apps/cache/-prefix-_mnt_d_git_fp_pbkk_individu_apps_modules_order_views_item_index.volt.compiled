@@ -14,6 +14,8 @@
 <link href="<?= $this->url->get('css/bootstrap-select.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/tagsinput.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/Chart.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/navbarstyle.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/footer.css') ?>" rel="stylesheet">
 
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
@@ -27,62 +29,81 @@
 <body>
 	<!-- Header Content -->
         <!-- Nav tabs -->
-        <nav class="navbar navbar-dark navbar-expand-lg fixed-top" style="font-size: 16px; background-color: #6878a0">
-            <?php if ($this->session->get('auth') && $this->session->get('auth')['role'] == 1) { ?>
-                <a class="nav-link text-light" href="<?= $this->url->get() ?>">Home</a>
-            <?php } elseif ($this->session->get('auth') && $this->session->get('auth')['role'] == 0) { ?>
-                <a class="nav-link text-light" href="<?= $this->url->get('dashboard/user') ?>">Home</a>
-            <?php } else { ?>
-                <a class="nav-link text-light" href="<?= $this->url->get('home') ?>">Home</a>
-            <?php } ?>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                <?php if ($this->session->get('auth')) { ?>
-                    <?php if ($this->session->get('auth')['role'] == 1) { ?>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="<?= $this->url->get('expense') ?>">Pengeluaran</a>
+        <nav class="navbar">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <button class="navbar-toggler" data-toggle="open-navbar1">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <a href="#">
+                        <h4 style="font-weight: bold;">Laundry Service<span> Organizer</span></h4>
+                    </a>
+                </div>
+
+                <div class="navbar-menu" id="open-navbar1">
+                    <ul class="navbar-nav">
+                        <?php if ($this->session->get('auth') && $this->session->get('auth')['role'] == 1) { ?>
+                        <li class=""><a href="<?= $this->url->get() ?>">Home</a></li>
+                        <?php } elseif ($this->session->get('auth') && $this->session->get('auth')['role'] == 0) { ?>
+                        <li class=""><a href="<?= $this->url->get('dashboard/user') ?>">Home</a></li>
+                        <?php } else { ?>
+                        <li class=""><a href="<?= $this->url->get('home') ?>">Home</a></li>
+                        <?php } ?>
+                        <?php if ($this->session->get('auth')) { ?>
+                        <?php if ($this->session->get('auth')['role'] == 1) { ?>
+                        <li class="navbar-dropdown">
+                            <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-0">
+                                Pengelolaan <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown" id="my-dropdown-0">
+                                <li><a href="<?= $this->url->get('expense') ?>">Pengeluaran</a></li>
+                                <li class="separator"></li>
+                                <li><a href="<?= $this->url->get('goods') ?>">Barang</a></li>
+                                <li class="separator"></li>
+                                <li><a href="<?= $this->url->get('service') ?>">Service Laundry</a></li>
+                                <li class="separator"></li>
+                                <li><a href="<?= $this->url->get('order') ?>">Pesanan</a></li>
+                                <li class="separator"></li>
+                                <li><a href="<?= $this->url->get('pickup_delivery') ?>">Jasa Antar Jemput</a></li>
+                                <li class="separator"></li>
+                                <li><a href="<?= $this->url->get('payment') ?>">Pembayaran</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="<?= $this->url->get('goods') ?>">Barang</a>
+                        <?php } else { ?>
+                        <li><a href="<?= $this->url->get('item') ?>">Item</a></li>
+                        <li class="navbar-dropdown">
+                            <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-1">
+                                Pesanan <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown" id="my-dropdown-1">
+                                <li><a href="<?= $this->url->get('order/users') ?>">Tambah Pesanan</a></li>
+                                <li class="separator"></li>
+                                <li><a href="<?= $this->url->get('/listorder') ?>">Daftar Pesanan</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="<?= $this->url->get('service') ?>">Service Laundry</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="<?= $this->url->get('order') ?>">Pesanan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="<?= $this->url->get('pickup_delivery') ?>">Jasa Antar-Jemput</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="<?= $this->url->get('payment') ?>">Pembayaran</a>
-                        </li>
-                    <?php } else { ?>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pesanan</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="<?= $this->url->get('order/users') ?>">Tambah Pesanan</a>
-                                <a class="dropdown-item" href="<?= $this->url->get('/listorder') ?>">Daftar Pesanan</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="<?= $this->url->get('item') ?>">Item</a>
-                        </li>
-                    <?php } ?>
-                <?php } ?>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <?php if ($this->session->get('auth')) { ?>
+                        <?php } ?>
+                        <?php } ?>
+
+                        <?php if ($this->session->get('auth')) { ?>
                         <?php $val = 'profile?id=' . $this->session->get('auth')['id']; ?>
-                        <a class="nav-link text-light" href="<?= $this->url->get($val) ?>">Selamat Datang, <span class="text-info"><?= $this->session->get('auth')['username'] ?></span></a>
-                        <a class="nav-link btn btn-danger" href="<?= $this->url->get('logout') ?>">Log Out</a>
-                    <?php } else { ?>
-                        <a class="nav-link text-light" href="<?= $this->url->get('login') ?>">Log In</a>
-                    <?php } ?>
-                </ul>
+                        <li class="navbar-dropdown">
+                            <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-2">
+                                <?= $this->session->get('auth')['username'] ?> <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown" id="my-dropdown-2">
+                                <li><a href="<?= $this->url->get($val) ?>">Profil</a></li>
+                                <li class="separator"></li>
+                                <li><a href="<?= $this->url->get('logout') ?>">Logout</a></li>
+                            </ul>
+                        </li>
+                        <?php } else { ?>
+                            <li><a href="<?= $this->url->get('login') ?>">Login</a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
         </nav>
 <!-- END Header Content -->
@@ -191,22 +212,23 @@
 </div>
 <?php $v141864312435494111791incr++; } ?>
 
-	<div class="clearfix bottom-content">
-		<div class="row" style="position: relative; margin-top:10vh; width: 100%; color: white"> 
-			<div class="col-md-8">
-				<p style="padding-left: 2vw;">© Copy Right by Bella Septina. Created with<span>❤</span></p>
-			</div>
-			<div class="col-md-4">
-				<div class="row">
-				<div class="col-sm">
-                	<a type="button" class="text-light" href=""><i class="fa fa-globe" style="font-size:24px"></i>service.laundry.com</a><br>
-                </div>
-				<div class="col-sm">
-					<a type="button" class="text-light" href=""><i class="fa fa-facebook-square" style="font-size:24px"></i> Service Laundry Organizer</a><br>
-				</div>
-				</div>
-			</div>
-		</div> 
-	</div>
+	
+	<footer class="footer-distributed">
+		<div class="footer-right">
+			<a href="#"><i class="fa fa-facebook"></i></a>
+			<a href="#"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-linkedin"></i></a>
+			<a href="#"><i class="fa fa-github"></i></a>
+		</div>
+
+		<div class="footer-left">
+			<p class="footer-links">
+				<a class="link-1" href="<?= $this->url->get('home') ?>">Laundry Service Organizer</a>
+			</p>
+			<p>Created with ❤ by Bayu Laksana and Bella Septina Ika &copy; 2020</p>
+		</div>
+	</footer>
+
+	<script type="text/javascript" src="<?= $this->url->get('js/navbar.js') ?>"></script>
 </body>
 </html>
