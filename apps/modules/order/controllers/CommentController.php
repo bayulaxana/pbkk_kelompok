@@ -96,11 +96,11 @@ class CommentController extends SecureController
             $comment->construct($user_id,$comment_content,$comment_status,$comment_date,$order_id);
             if($comment->update())
             {
-                $this->flashSession->success('Data Pembayaran berhasil diubah');
+                $this->flashSession->success('Data Komentar berhasil diubah');
             }
             else
             {
-                $this->flashSession->error('Data Pembayaran tidak berhasil diubah. Mohon coba ulang kembali');
+                $this->flashSession->error('Data Komentar tidak berhasil diubah. Mohon coba ulang kembali');
             }
         }
         else

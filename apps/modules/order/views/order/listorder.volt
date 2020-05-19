@@ -41,7 +41,7 @@
                             <td>{{t['order_status']}}</td>
                             <td>
                                 <a href="#lihatNotesModal{{t['order_id']}}" class="view" data-toggle="modal" ><i class="fa fa-eye" data-toggle="tooltip" title="Lihat Detail Item"></i></a>
-                                <a href="#tambahNotesModal" class="order-hidden add" data-toggle="modal"><i class="fa fa-plus" data-toggle="tooltip" title="Tambah Catatan"></i></a>
+                                <a href="#tambahNotesModal" class="order-hidden add" data-toggle="modal" value="{{t['order_id']}}"><i class="fa fa-plus" data-toggle="tooltip" title="Tambah Catatan"></i></a>
                                 <a href="#editNotesModal{{t['order_id']}}" class="edit" data-toggle="modal"><i class="fa fa-pencil" data-toggle="tooltip" title="Ubah Catatan"></i></a>
                                 <a href="#hapusNotesModal" class="delete" data-toggle="modal"><i class="fa fa-trash-o" data-toggle="tooltip" title="Hapus Catatan"></i></a>
                             </td>
@@ -98,7 +98,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">				
-                    <input type='hidden' value="{{detail_item[j][0]['comment_id']}}" name='comment_id' id='comment_id'>
+                    <input type='hidden' value="{% for l in detail_item[j] %}{{l['comment_id']}}{% endfor %}" name='comment_id' id='comment_id'>
                     <p>Apakah Anda yakin untuk menghapus data yang telah dipilih ?</p>
                 </div>
                 <div class="modal-footer">
@@ -118,7 +118,9 @@
                     <h4 class="modal-title">Ubah Catatan</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-                <input type="hidden" id="comment_id" name="comment_id" value="{{detail_item[j][0]['comment_id']}}">
+                {% if detail_item[j] != null %}
+                <input type="hidden" id="comment_id" name="comment_id" value="{% for l in detail_item[j] %}{{l['comment_id']}}{% endfor %}">
+                <input type="hidden" id="order_id" name="order_id" value="{{t['order_id']}}">
                 <div class="modal-body">
                      <div class="form-group">
                         <label><b>Konten Komentar</b></label>
@@ -128,14 +130,14 @@
                         <label><b>Status Komentar</b></label>
                         <p><input type="text" class="form-control" name="comment_status" id="comment_status"  value="{{detail_item[j][0]['comment_status']}}"></p>
                     </div>
-                    <div class="form-group">				
-                    </div>
                 </div>
+                {% endif %}
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
                     <input type="submit" class="btn btn-success" id="Simpan" nama="Simpan" value="Simpan">
                 </div>
             </form>
+            
         </div>
     </div>
 </div>

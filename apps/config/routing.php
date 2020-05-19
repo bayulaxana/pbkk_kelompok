@@ -345,6 +345,13 @@ $container['router'] = function() use ($defaultModule, $modules) {
 		'controller'	=> 'IndexUser',
 		'action'		=> 'index'
 	]);
+
+	$router->addPost('/listorder',[
+		'namespace'		=> 'ServiceLaundry\Order\Controllers\Web',
+		'module'		=> 'order',
+		'controller'	=> 'Comment',
+		'action'		=> 'delete'
+	]);
 	
     $router->removeExtraSlashes(true);
     
