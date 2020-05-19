@@ -8,10 +8,11 @@
 }
 
 body {
-    background-image: url('../assets/background.jpg');
-    background-repeat: no-repeat;
+    background-image: url('../assets/bg2.jpg');
+    background-repeat: repeat-y;
     background-position: center;
-    background-size: cover ;
+    background-size: cover;
+    background-attachment: fixed;
     width: 100%;
 }
 
@@ -58,12 +59,14 @@ body {
     z-index: 999;
 }
 
-
 .card.login-card {
     height:27vw;
-    margin-top: 12vh;
-    margin-left:20vw;
-    width:50%;
+    /* margin-top: 12vh;
+    margin-left:20vw; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    width:70%;
     font-size: 1vw;
     box-shadow: black;
     background-color: #eafdff;
@@ -88,7 +91,6 @@ body {
     margin-left: 40%;
     margin-top: -10%;
     margin-bottom: 1%;
-    border:5px solid blue;
     box-shadow: black;
     border-radius: 50%;
     resize: both;
@@ -137,13 +139,14 @@ span.tag.badge.badge-info:hover{
 }
 .table-title {        
     padding-bottom: 15px;
-    background: #435d7d;
+    background: #1a69c9;
     color: #fff;
     padding: 16px 30px;
     margin: -20px -25px 10px;
     border-radius: 3px 3px 0 0;
 }
 .table-title h2 {
+    color: white;
     margin: 5px 0 0;
     font-size: 24px;
 }

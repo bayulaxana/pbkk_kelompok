@@ -20,8 +20,7 @@
 		{% endif %}
 	</div>
 	<div class="row-centered">
-		<div class="card login-card" style="margin-top:25vh">
-			<img class="avatar" src="{{url('assets/logo.png')}}">
+		<div class="card login-card pt-3">
 			<h1 class="text-center text-secondary">Log In <span class="text-info">Akun</span></h1>
 			<div class="col-md-6" style="margin-left:12vw;">
 				{{ form.startForm()}}
@@ -44,9 +43,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="floats">
-			<img src="{{url('assets/login.png')}}" style="height:80vh">
-		</div>
+		
 	</div>
 </div>
 
